@@ -40,7 +40,7 @@
         <jackson-bom.version>2.21.7</jackson-bom.version>
         <!-- CVE-2025-67030: plexus-utils Directory Traversal; need >= 4.0.3 -->
         <plexus-utils.version>4.0.3</plexus-utils.version>
-        <elasticsearch.version>8.15.2</elasticsearch.version>
+        <elasticsearch.version>8.15.5</elasticsearch.version>
         <spring-plugin.version>3.0.0</spring-plugin.version>
         <jacoco.version>0.8.14</jacoco.version>
         <git-commit-id-maven-plugin.version>8.0.2</git-commit-id-maven-plugin.version>
