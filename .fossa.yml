@@ -16,15 +16,3 @@ analyze:
       type: mvn
       target: indexer-core/pom.xml
       path: .
-    - name: indexer-core-plus
-      type: mvn
-      target: indexer-core-plus/pom.xml
-      path: .
-    - name: indexer-azure
-      type: mvn
-      target: provider/indexer-azure/pom.xml
-      path: .
-    - name: indexer-ibm
-      type: mvn
-      target: provider/indexer-ibm/pom.xml
-      path: .

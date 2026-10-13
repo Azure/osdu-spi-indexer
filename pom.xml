@@ -280,21 +280,14 @@
             </activation>
             <modules>
                 <module>indexer-core</module>
-                <module>indexer-core-plus</module>
             </modules>
         </profile>
-        <profile>
-            <id>azure</id>
-            <modules>
-                <module>provider/indexer-azure</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>ibm</id>
-            <modules>
-                <module>provider/indexer-ibm</module>
-            </modules>
-        </profile>
+    <profile>
+      <id>azure</id>
+      <modules>
+        <module>provider/indexer-azure</module>
+      </modules>
+    </profile>
     </profiles>
 
     <build>
