@@ -71,6 +71,7 @@ SPI Stack sets the service's environment from two places: the shared `osdu-confi
 | `ENTITLEMENTS_SERVICE_ENDPOINT`<br>`http://entitlements/api/entitlements/v2` | Caller authorization |
 | `ENTITLEMENTS_SERVICE_API_KEY`<br>`OBSOLETE` | Legacy key passed to the Entitlements client; the property has no default, so the placeholder must stay set |
 | `SCHEMA_SERVICE_URL`<br>`http://schema/api/schema-service/v1` | Schema lookups; the service appends `/schema` |
+| `SEARCH_SERVICE_URL`<br>`http://search/api/search/v2` | Search service base URL, exposed to the application as `SEARCH_HOST` |
 | `STORAGE_SERVICE_URL`<br>`http://storage/api/storage/v2` | Base for the Storage kinds query |
 | `STORAGE_SCHEMA_HOST`<br>`http://storage/api/storage/v2/schemas` | Storage schema API |
 | `STORAGE_QUERY_RECORD_HOST`<br>`http://storage/api/storage/v2/query/records` | Records by ID, and record IDs by kind for reindex |
