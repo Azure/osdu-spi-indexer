@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.opengroup.osdu.indexer</groupId>
+    <artifactId>indexer-acceptance-test</artifactId>
+    <version>0.31.0-SNAPSHOT</version>
+
+    <properties>
+        <java.version>25</java.version>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <os-core-test.version>1.1.0</os-core-test.version>
+        <junit.version>5.14.4</junit.version>
+        <lombok.version>1.18.42</lombok.version>
+        <jackson.annotations.version>2.21</jackson.annotations.version>
+        <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
+        <repo.releases.id>community-maven-repo</repo.releases.id>
+        <repo.releases.url>https://community.opengroup.org/api/v4/groups/17/-/packages/maven</repo.releases.url>
+        <argLine>
+            --add-opens java.base/java.lang=ALL-UNNAMED
+            --add-opens=java.base/java.util=ALL-UNNAMED
+            --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+            --add-opens java.base/java.text=ALL-UNNAMED
+            --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+        </argLine>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--
+                cucumber-junit-platform-engine:7.34.3 (from os-core-test) requires JUnit Platform 1.14.x.
+                Importing junit-bom here keeps the standalone module aligned with os-core-test.
+            -->
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--
+                commons-configuration2:2.15.0 (from os-core-test) calls ObjectUtils.getIfNull(Object, Object)
+                added in commons-lang3 3.15.0. Pin explicitly so transitive resolution cannot
+                choose an older commons-lang3.
+            -->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>3.20.0</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.opengroup.osdu</groupId>
+            <artifactId>os-core-test</artifactId>
+            <version>${os-core-test.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.annotations.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <argLine>@{argLine}</argLine>
+                    <systemPropertyVariables>
+                        <expose_featureflag.enabled>true</expose_featureflag.enabled>
+                        <ELASTIC_8_SSL_ENABLED>true</ELASTIC_8_SSL_ENABLED>
+                        <SECURITY_HTTPS_CERTIFICATE_TRUST>true</SECURITY_HTTPS_CERTIFICATE_TRUST>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>${repo.releases.id}</id>
+            <url>${repo.releases.url}</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>${repo.releases.id}</id>
+            <url>${repo.releases.url}</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>
