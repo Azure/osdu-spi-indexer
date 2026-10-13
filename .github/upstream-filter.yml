@@ -1,0 +1,95 @@
+# Per-service upstream filter config (ADR-038), planted at fork initialization
+# with <service> substituted from the upstream repository name.
+# Every upstream top-level entry, testing/ entry, root pom profile, and
+# .fossa.yml module must appear here: the engine halts rather than guess.
+# Entries absent from a given upstream tree are inert, so this file carries the
+# superset of the conventional OSDU service shape. A service that deviates
+# maintains its own copy of this file on the fork's main branch.
+service: indexer
+
+top_level:
+  .config: keep
+  .dockerignore: keep
+  .editorconfig: keep
+  .envrc.template: keep
+  .fossa.yml: keep
+  .gitattributes: keep
+  .gitignore: keep
+  .gitlab: strip
+  .gitlab-ci.yml: strip
+  .mvn: keep
+  .sonarlint: keep
+  .trufflehog-exclude: strip
+  LICENSE: keep
+  NOTICE: keep
+  README.md: strip
+  docs: keep
+  pom.xml: keep
+  publish.yml: strip
+  indexer-acceptance-test: keep
+  indexer-core: keep
+  indexer-core-plus: strip
+  lombok.config: keep
+
+testing:
+  .gitignore: keep
+  readme.md: keep
+  INTEGRATION-TESTS.md: keep
+  README.md: keep
+  maven: keep
+  pom.xml: keep
+  indexer-test-core: keep
+  indexer-test-azure: fork
+  indexer-test-aws: strip
+  indexer-test-baremetal: strip
+  indexer-test-core-plus: strip
+  indexer-test-gc: strip
+  indexer-test-gcp: strip
+  indexer-test-ibm: strip
+  indexer-test-jdbc: strip
+
+profiles:
+  Default: keep
+  core: keep
+  azure: inject
+  aws: strip
+  gc: strip
+  gcp: strip
+  ibm: strip
+
+fossa_modules:
+  indexer: keep
+  indexer-service: keep
+  indexer-core: keep
+  indexer-core-plus: strip
+  indexer-azure: strip
+  indexer-aws: strip
+  indexer-gc: strip
+  indexer-gcp: strip
+  indexer-ibm: strip
+  indexer-jdbc: strip
+
+expected_kept:
+  - pom.xml
+  - indexer-core
+  - testing/indexer-test-core
+
+expected_absent:
+  - provider
+  - devops
+  - indexer-core-plus
+  - .gitlab-ci.yml
+  - testing/indexer-test-azure
+  - testing/indexer-test-aws
+  - testing/indexer-test-core-plus
+
+inject_root_pom_azure_profile: |
+      <profile>
+        <id>azure</id>
+        <modules>
+          <module>provider/indexer-azure</module>
+        </modules>
+      </profile>
+
+inject_testing_pom_azure_module: |
+      <module>indexer-test-azure</module>
