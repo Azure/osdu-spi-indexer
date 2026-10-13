@@ -56,6 +56,7 @@ SPI Stack sets the service's environment from two places: the shared `osdu-confi
 | `APPINSIGHTS_KEY` | Telemetry |
 | `SERVER_PORT` | HTTP port (`8080`) |
 | `REDIS_PORT` | Redis port (`6379`); binds to `redis.port` ahead of the provider default of `6380` |
+| `REDIS_HOSTNAME` | Redis hostname used by the service's caches |
 
 **Specific to Indexer**, from `services/indexer.yaml`:
 
