@@ -32,7 +32,7 @@
 		<junit.jupiter.version>5.11.3</junit.jupiter.version>
 		<junit.platform.version>1.11.3</junit.platform.version>
 		<maven.surefire.version>3.5.4</maven.surefire.version>
-		<elasticsearch.version>8.15.2</elasticsearch.version>
+		<elasticsearch.version>8.15.5</elasticsearch.version>
 	</properties>
 	<packaging>pom</packaging>
 
