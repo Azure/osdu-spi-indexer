@@ -46,7 +46,7 @@ import org.opengroup.osdu.indexer.util.parser.*;
 import org.opengroup.osdu.indexer.util.BooleanFeatureFlagClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -100,10 +100,10 @@ public class StorageIndexerPayloadMapperTest {
     @Autowired
     private VirtualPropertiesSchemaCache virtualPropertiesSchemaCache;
 
-    @MockBean
+    @MockitoBean
     protected IFeatureFlag featureFlagChecker;
 
-    @MockBean
+    @MockitoBean
     protected BooleanFeatureFlagClient partitionFlagChecker;
 
     @BeforeClass

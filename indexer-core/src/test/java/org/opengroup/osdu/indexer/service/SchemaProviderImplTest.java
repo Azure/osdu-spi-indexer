@@ -14,6 +14,9 @@
 
 package org.opengroup.osdu.indexer.service;
 
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
@@ -44,6 +47,9 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
 public class SchemaProviderImplTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     private ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
     private JaxRsDpsLog jaxRsDpsLog = Mockito.mock(JaxRsDpsLog.class);

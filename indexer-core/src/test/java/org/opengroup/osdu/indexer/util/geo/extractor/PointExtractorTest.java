@@ -16,6 +16,9 @@
 
 package org.opengroup.osdu.indexer.util.geo.extractor;
 
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
@@ -36,6 +39,9 @@ import java.util.*;
 
 @RunWith(SpringRunner.class)
 public class PointExtractorTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
     private static ObjectMapper objectMapper;
 
     @InjectMocks

@@ -15,6 +15,9 @@
 
 package org.opengroup.osdu.indexer.util.geo.decimator;
 
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
@@ -47,6 +50,9 @@ import static org.mockito.Mockito.doAnswer;
 
 @RunWith(SpringRunner.class)
 public class GeometryDecimatorTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
     private final Gson gson = new Gson();
     private ObjectMapper deserializerMapper;
 

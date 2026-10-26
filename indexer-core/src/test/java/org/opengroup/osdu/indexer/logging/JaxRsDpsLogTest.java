@@ -14,6 +14,9 @@
 
 package org.opengroup.osdu.indexer.logging;
 
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +41,9 @@ import static org.mockito.Mockito.*;
 @Ignore
 @RunWith(SpringRunner.class)
 public class JaxRsDpsLogTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
     private ILogger log;

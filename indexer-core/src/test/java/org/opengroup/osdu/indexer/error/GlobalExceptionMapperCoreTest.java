@@ -47,7 +47,7 @@ public class GlobalExceptionMapperCoreTest {
         AppException exception = new AppException(409, "any reason", "any message");
 
         ResponseEntity<Object> response = sut.handleAppException(exception);
-        assertEquals(409, response.getStatusCodeValue());
+        assertEquals(409, response.getStatusCode().value());
         assertEquals(exception.getError(), response.getBody());
     }
 
@@ -56,7 +56,7 @@ public class GlobalExceptionMapperCoreTest {
         NotFoundException exception = new NotFoundException("any message");
 
         ResponseEntity<Object> response = sut.handleNotFoundException(exception);
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(404, response.getStatusCode().value());
         assertTrue(response.getBody().toString().contains("any message"));
     }
 
@@ -65,7 +65,7 @@ public class GlobalExceptionMapperCoreTest {
         Exception exception = new Exception("any message");
 
         ResponseEntity<Object> response = sut.handleGeneralException(exception);
-        assertEquals(500, response.getStatusCodeValue());
+        assertEquals(500, response.getStatusCode().value());
         assertEquals("AppError(code=500, reason=Server error., message=An unknown error has occurred., errors=null, debuggingInfo=null, originalException=java.lang.Exception: any message)", response.getBody().toString());
     }
 
@@ -74,7 +74,7 @@ public class GlobalExceptionMapperCoreTest {
         ValidationException exception = new ValidationException();
 
         ResponseEntity<Object> response = sut.handleValidationException(exception);
-        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCodeValue());
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCode().value());
     }
 
     @Test
@@ -82,7 +82,7 @@ public class GlobalExceptionMapperCoreTest {
         AccessDeniedException exception = new AccessDeniedException("Access is denied.");
 
         ResponseEntity<Object> response = sut.handleAccessDeniedException(exception);
-        assertEquals(HttpStatus.SC_FORBIDDEN, response.getStatusCodeValue());
+        assertEquals(HttpStatus.SC_FORBIDDEN, response.getStatusCode().value());
     }
 
     @Test
@@ -90,7 +90,7 @@ public class GlobalExceptionMapperCoreTest {
         AppException exception = new AppException(RequestStatus.INVALID_RECORD, "Invalid request", "Successful Storage service response with wrong json");
 
         ResponseEntity<Object> response = sut.handleAppException(exception);
-        assertEquals(RequestStatus.INVALID_RECORD, response.getStatusCodeValue());
+        assertEquals(RequestStatus.INVALID_RECORD, response.getStatusCode().value());
     }
 
     @Test
@@ -106,7 +106,7 @@ public class GlobalExceptionMapperCoreTest {
         IOException ioException = new IOException("Not broken yet");
 
         ResponseEntity response = this.sut.handleIOException(ioException);
-        assertEquals(HttpStatus.SC_SERVICE_UNAVAILABLE, response.getStatusCodeValue());
+        assertEquals(HttpStatus.SC_SERVICE_UNAVAILABLE, response.getStatusCode().value());
     }
 
     @Test
@@ -114,6 +114,6 @@ public class GlobalExceptionMapperCoreTest {
         SchemaProcessingException schemaProcessingException = new SchemaProcessingException("error processing schema");
         
         ResponseEntity response = this.sut.handleSchemaProcessingException(schemaProcessingException);
-        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCodeValue());
+        assertEquals(HttpStatus.SC_BAD_REQUEST, response.getStatusCode().value());
     }
 }
