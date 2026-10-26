@@ -30,7 +30,6 @@ import org.opengroup.osdu.oqm.core.model.OqmMessageReceiver;
 import org.opengroup.osdu.oqm.core.model.OqmSubscriberThroughput;
 import org.opengroup.osdu.indexer.api.RecordIndexerApi;
 import org.opengroup.osdu.indexer.api.ReindexApi;
-import org.opengroup.osdu.core.common.feature.IFeatureFlag;
 import org.opengroup.osdu.indexer.indexing.config.MessagingConfigProperties;
 import org.opengroup.osdu.indexer.indexing.processing.RecordsChangedMessageReceiver;
 import org.opengroup.osdu.indexer.indexing.processing.ReindexMessageReceiver;
@@ -71,9 +70,6 @@ class TenantSubscriberConfigurationTest {
     @Mock
     private ReindexApi reindexApi;
 
-    @Mock
-    private IFeatureFlag featureFlag;
-
     @Captor
     private ArgumentCaptor<String> dataPartitionIdCaptor;
 
@@ -108,11 +104,11 @@ class TenantSubscriberConfigurationTest {
                 reindexApi
         );
 
-        // Setup default mock behavior
-        when(properties.getRecordsChangedTopicName()).thenReturn(RECORDS_CHANGED_TOPIC);
-        when(properties.getSchemaChangedTopicName()).thenReturn(SCHEMA_CHANGED_TOPIC);
-        when(properties.getReprocessTopicName()).thenReturn(REPROCESS_TOPIC);
-        when(properties.getReindexTopicName()).thenReturn(REINDEX_TOPIC);
+        // Setup default mock behavior; lenient because some tests intentionally exercise empty tenant lists
+        lenient().when(properties.getRecordsChangedTopicName()).thenReturn(RECORDS_CHANGED_TOPIC);
+        lenient().when(properties.getSchemaChangedTopicName()).thenReturn(SCHEMA_CHANGED_TOPIC);
+        lenient().when(properties.getReprocessTopicName()).thenReturn(REPROCESS_TOPIC);
+        lenient().when(properties.getReindexTopicName()).thenReturn(REINDEX_TOPIC);
     }
 
     @Test
