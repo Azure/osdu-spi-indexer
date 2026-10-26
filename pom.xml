@@ -38,7 +38,7 @@
         <tomcat.version>10.1.60</tomcat.version>
         <!-- Container scanning (Trivy): jackson-core/databind 2.21.4 → HIGH CVEs fixed in 2.21.7.
              Import jackson-bom ahead of spring-boot-dependencies so the whole jackson.core line moves. -->
-        <jackson-bom.version>2.21.7</jackson-bom.version>
+        <jackson-bom.version>2.21.8</jackson-bom.version>
         <!-- CVE-2025-67030: plexus-utils Directory Traversal; need >= 4.0.3 -->
         <plexus-utils.version>4.0.3</plexus-utils.version>
         <elasticsearch.version>8.15.2</elasticsearch.version>
