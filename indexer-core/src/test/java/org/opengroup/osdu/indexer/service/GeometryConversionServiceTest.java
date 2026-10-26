@@ -126,8 +126,8 @@ public class GeometryConversionServiceTest {
 
         Map<String, Double> result = this.sut.tryGetGeopoint(positionTreeMap);
 
-        assertEquals(new Double(10.0), result.get("lon"));
-        assertEquals(new Double(20.0), result.get("lat"));
+        assertEquals(Double.valueOf(10.0), result.get("lon"));
+        assertEquals(Double.valueOf(20.0), result.get("lat"));
     }
 
     @Test

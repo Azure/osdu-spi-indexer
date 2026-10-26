@@ -47,7 +47,9 @@ import org.opengroup.osdu.indexer.util.BooleanFeatureFlagClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.MapperFeature;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.nio.charset.StandardCharsets;
@@ -476,7 +478,7 @@ public class StorageIndexerPayloadMapperTest {
 
     private SchemaRoot parserJsonString(final String schemaServiceFormat) {
         try {
-            ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
+            ObjectMapper objectMapper = JsonMapper.builder().findAndAddModules().disable(MapperFeature.DEFAULT_VIEW_INCLUSION).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).build();
             return objectMapper.readValue(schemaServiceFormat, SchemaRoot.class);
         } catch (JsonProcessingException e) {
             throw new SchemaProcessingException("Failed to parse the schema");
