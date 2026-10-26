@@ -20,7 +20,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.opengroup.osdu.indexer.config.IndexerConfigurationProperties.COLLABORATIONS_FEATURE_NAME;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -153,13 +152,9 @@ public class RecordIndexerApiTest {
   private FeatureFlagStateConfiguration stateConfiguration;
 
   @ParameterizedTest
-  @CsvSource({"true,true", "true,false", "false,false", "false, true"})
-  public void givenXcollaborationHeaderAndFeatureEnabledTest(String isFeatureEnabled,
-                                                             String shouldIncludeXattributeIntoHeader)
+  @CsvSource({"true", "false"})
+  public void givenXcollaborationHeaderAndFeatureEnabledTest(String shouldIncludeXattributeIntoHeader)
       throws Exception {
-
-    // set env to enable feature
-    System.setProperty(COLLABORATIONS_FEATURE_NAME, isFeatureEnabled);
 
     // constants
     String schemaAsJsonFile = "src/test/java/org/opengroup/osdu/indexer/integTest/fixtures/schema.json";

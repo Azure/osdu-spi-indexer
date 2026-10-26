@@ -237,7 +237,6 @@ public class IndexerMappingServiceImpl extends MappingServiceImpl implements IMa
 
         // Let's gather fields that are missingFields in mapping that came from elastic
         List<String> missingFields = getMissingFields(props);
-        postProcessMissingFields(missingFields);
 
         if (missingFields.isEmpty()) {
             this.indexCache.put(cacheKey, true);
@@ -295,16 +294,6 @@ public class IndexerMappingServiceImpl extends MappingServiceImpl implements IMa
         log.info(String.format("Creating Mapping for index %s, %s", index, mapping));
 
         this.indexCache.put(cacheKey, true);
-    }
-
-    private void postProcessMissingFields(List<String> missing) {
-        if (xcollaborationHolder.isFeatureEnabled() && xcollaborationHolder.getCollaborationContext().isEmpty()) {
-            removeXcollaborationField(missing);
-        }
-    }
-
-    private void removeXcollaborationField(List<String> missing) {
-        missing.remove(X_COLLABORATION);
     }
 
     /**

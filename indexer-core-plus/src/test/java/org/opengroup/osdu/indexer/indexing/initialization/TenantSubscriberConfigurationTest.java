@@ -105,8 +105,7 @@ class TenantSubscriberConfigurationTest {
                 tokenProvider,
                 headers,
                 recordIndexerApi,
-                reindexApi,
-                featureFlag
+                reindexApi
         );
 
         // Setup default mock behavior
