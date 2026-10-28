@@ -17,12 +17,16 @@
 
 package org.opengroup.osdu.indexer.indexing.initialization;
 
+import static org.opengroup.osdu.indexer.config.IndexerConfigurationProperties.COLLABORATIONS_FEATURE_NAME;
+
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.opengroup.osdu.auth.TokenProvider;
+import org.opengroup.osdu.core.common.feature.IFeatureFlag;
 import org.opengroup.osdu.core.common.model.tenant.TenantInfo;
 import org.opengroup.osdu.core.common.provider.interfaces.ITenantFactory;
+import org.opengroup.osdu.indexer.model.XcollaborationHolder;
 import org.opengroup.osdu.oqm.core.model.OqmSubscriberThroughput;
 import org.opengroup.osdu.indexer.api.RecordIndexerApi;
 import org.opengroup.osdu.indexer.api.ReindexApi;
@@ -41,7 +45,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class  TenantSubscriberConfiguration {
+public class TenantSubscriberConfiguration {
 
   private static final String SUBSCRIPTION_PREFIX = "indexer-";
   private final MessagingConfigProperties properties;
@@ -51,21 +55,24 @@ public class  TenantSubscriberConfiguration {
   private final ThreadDpsHeaders headers;
   private final RecordIndexerApi recordIndexerApi;
   private final ReindexApi reindexApi;
+  private final IFeatureFlag featureFlagChecker;
 
   /**
    * Tenant configurations provided by the Partition service will be used to configure subscribers. If tenants use the
-   * same message broker (The same RabbitMQ instance, or the same GCP project Pub/Sub) then only one subscriber in this
+   * same message broker(The same RabbitMQ instance, or the same GCP project Pub/Sub) then only one subscriber in this
    * broker will be used.
    */
   @PostConstruct
-  public void postConstruct() {
+  void postConstruct() {
+    log.info("OqmSubscriberManager provisioning STARTED");
+    String recordsChangedTopicName = properties.getRecordsChangedTopicName();
+    String recordsChangedTopicNameV2 = properties.getRecordsChangedTopicNameV2();
+    String schemaChangedTopicName = properties.getSchemaChangedTopicName();
+    String reprocessTopicName = properties.getReprocessTopicName();
+    String reindexTopicName = properties.getReindexTopicName();
+
     for (TenantInfo tenantInfo : tenantInfoFactory.listTenantInfo()) {
       String dataPartitionId = tenantInfo.getDataPartitionId();
-      String recordsChangedTopicName = properties.getRecordsChangedTopicName();
-      String schemaChangedTopicName = properties.getSchemaChangedTopicName();
-      String reprocessTopicName = properties.getReprocessTopicName();
-      String reindexTopicName = properties.getReindexTopicName();
-
       subscriberManager.registerSubscriber(
           dataPartitionId,
           recordsChangedTopicName,
@@ -94,6 +101,15 @@ public class  TenantSubscriberConfiguration {
           new ReindexMessageReceiver(headers, tokenProvider, recordIndexerApi),
           OqmSubscriberThroughput.MAX
       );
+      if (featureFlagChecker.isFeatureEnabled(COLLABORATIONS_FEATURE_NAME, dataPartitionId)) {
+        subscriberManager.registerSubscriber(
+            dataPartitionId,
+            recordsChangedTopicNameV2,
+            getSubscriptionName(recordsChangedTopicNameV2),
+            new RecordsChangedMessageReceiver(headers, tokenProvider, recordIndexerApi),
+            OqmSubscriberThroughput.MAX
+        );
+      }
     }
     log.info("OqmSubscriberManager provisioning COMPLETED");
   }
