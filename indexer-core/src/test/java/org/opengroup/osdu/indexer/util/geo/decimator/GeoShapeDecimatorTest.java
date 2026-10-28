@@ -15,6 +15,9 @@
 
 package org.opengroup.osdu.indexer.util.geo.decimator;
 
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,6 +45,9 @@ import static org.mockito.Mockito.doAnswer;
 
 @RunWith(SpringRunner.class)
 public class GeoShapeDecimatorTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
     private final Gson gson = new Gson();
 
     @InjectMocks
