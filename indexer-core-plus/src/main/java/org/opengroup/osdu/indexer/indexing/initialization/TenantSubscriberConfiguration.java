@@ -96,11 +96,11 @@ public class TenantSubscriberConfiguration {
           OqmSubscriberThroughput.MAX
       );
       subscriberManager.registerSubscriber(
-          dataPartitionId,
-          recordsChangedTopicNameV2,
-          getSubscriptionName(recordsChangedTopicNameV2),
-          new RecordsChangedMessageReceiver(headers, tokenProvider, recordIndexerApi),
-          OqmSubscriberThroughput.MAX
+           dataPartitionId,
+           recordsChangedTopicNameV2,
+           getSubscriptionName(recordsChangedTopicNameV2),
+           new RecordsChangedMessageReceiver(headers, tokenProvider, recordIndexerApi),
+           OqmSubscriberThroughput.MAX
       );
     }
     log.info("OqmSubscriberManager provisioning COMPLETED");
