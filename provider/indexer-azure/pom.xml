@@ -30,18 +30,13 @@
 
   <properties>
     <!-- Core Dependencies -->
-    <core-lib-azure.version>3.0.4</core-lib-azure.version>
+    <core-lib-azure.version>4.0.0</core-lib-azure.version>
+    <!-- Root pom pins lettuce explicitly, which beats the core-lib-azure BOM; match the library here -->
+    <lettuce.version>7.9.0.RELEASE</lettuce.version>
   </properties>
 
   <dependencyManagement>
       <dependencies>
-            <dependency>
-        <groupId>io.netty</groupId>
-        <artifactId>netty-bom</artifactId>
-        <version>${netty.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
 <dependency>
         <groupId>org.opengroup.osdu</groupId>
         <artifactId>core-lib-azure</artifactId>
