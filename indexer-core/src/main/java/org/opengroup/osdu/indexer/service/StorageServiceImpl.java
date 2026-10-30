@@ -154,7 +154,7 @@ public class StorageServiceImpl implements StorageService {
                 .headers(headers)
                 .body(body).build();
         HttpResponse response = this.urlFetchService.sendRequest(request);
-        log.debug("Is isFeatureEnabledAndHeaderExists: {}", xCollaborationHolder.isXcollaborationHeaderExists());
+        log.debug("Is isXcollaborationHeaderExists: {}", xCollaborationHolder.isXcollaborationHeaderExists());
         return this.validateStorageResponse(response, ids, recordChangedMap, validRecordKindPatchMap);
     }
 

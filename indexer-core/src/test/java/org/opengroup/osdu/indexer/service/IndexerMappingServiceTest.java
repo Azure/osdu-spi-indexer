@@ -136,7 +136,7 @@ public class IndexerMappingServiceTest {
         when(this.restClient.performRequest(any())).thenReturn(response);
         when(this.response.getStatusLine()).thenReturn(statusLine);
         when(this.statusLine.getStatusCode()).thenReturn(200);
-        when(xcollaborationHolder.isFeatureEnabledAndHeaderExists()).thenReturn(false);
+        when(xcollaborationHolder.isXcollaborationHeaderExists()).thenReturn(false);
 
         when(this.elasticsearchClient.indices()).thenReturn(this.indicesClient);
         GetMappingResponse mappingResponse = mock(GetMappingResponse.class);
