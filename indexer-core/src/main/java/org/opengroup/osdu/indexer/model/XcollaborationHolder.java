@@ -113,13 +113,6 @@ public class XcollaborationHolder {
   }
 
   /**
-   * x-collaboration is active by default whenever the header is present.
-   */
-  public boolean isFeatureEnabledAndHeaderExists() {
-    return isXcollaborationHeaderExists();
-  }
-
-  /**
    * Remove from string
    * 'osdu:master-data--CollaborationProject:xxx:a99cef48-2ed6-4beb-8a43-002373431f21' any header
    * value if it exists.

@@ -151,8 +151,8 @@ public class IndexerMappingServiceImpl extends MappingServiceImpl implements IMa
             // data & meta block
             properties.put(Constants.DATA, dataProperties);
 
-            // Add collaborationId if feature enabled and header exists
-            if (xcollaborationHolder.isFeatureEnabledAndHeaderExists()){
+            // Add collaborationId if header exists
+            if (xcollaborationHolder.isXcollaborationHeaderExists()){
                 properties.put(X_COLLABORATION, TypeMapper.getMetaAttributeIndexerMapping(X_COLLABORATION, null));
             }
         }
@@ -208,7 +208,7 @@ public class IndexerMappingServiceImpl extends MappingServiceImpl implements IMa
 
         // want to distinguish two types of project: collaboration and not-collaboration
         final String cacheKey;
-        if (xcollaborationHolder.isFeatureEnabledAndHeaderExists()) {
+        if (xcollaborationHolder.isXcollaborationHeaderExists()) {
             cacheKey = String.format("metaCollaborationAttributeMappingSynced-%s", index);
         } else {
             cacheKey = String.format("metaAttributeMappingSynced-%s", index);
