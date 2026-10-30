@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.opengroup.osdu.core.common.http.IUrlFetchService;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import org.opengroup.osdu.core.common.model.indexer.IndexProgress;
@@ -152,8 +152,8 @@ public class RecordIndexerApiTest {
   private FeatureFlagStateConfiguration stateConfiguration;
 
   @ParameterizedTest
-  @CsvSource({"true", "false"})
-  public void givenXcollaborationHeaderAndFeatureEnabledTest(String shouldIncludeXattributeIntoHeader)
+  @ValueSource(booleans = {true, false})
+  public void givenXcollaborationHeader_shouldProcessRequest(boolean shouldIncludeXattributeIntoHeader)
       throws Exception {
 
     // constants
@@ -180,7 +180,7 @@ public class RecordIndexerApiTest {
     attributes.put("data-partition-id", "test");
     String nameSpaceAsUUID = UUID.randomUUID().toString();
     String xCollaborationValue = "id=" + nameSpaceAsUUID + ",application=app-name-in-x-collab-header";
-    if (Boolean.parseBoolean(shouldIncludeXattributeIntoHeader)) {
+    if (shouldIncludeXattributeIntoHeader) {
       attributes.put(DpsHeaders.COLLABORATION, xCollaborationValue);
     }
 
