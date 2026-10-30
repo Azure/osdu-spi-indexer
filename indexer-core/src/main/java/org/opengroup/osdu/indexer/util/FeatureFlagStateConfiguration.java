@@ -117,7 +117,10 @@ public class FeatureFlagStateConfiguration {
               .partition(tenantInfo.getName())
               .name(MAP_BOOL2STRING_FEATURE_NAME)
               .source(featureFlagService.source() + " +  " + FF_SOURCE_DATA_PARTITION)
-              .enabled(booleanFeatureFlagClient.isEnabled(MAP_BOOL2STRING_FEATURE_NAME, false, tenantInfo.getName()))
+              .enabled(
+                      featureFlagService.isFeatureEnabled(MAP_BOOL2STRING_FEATURE_NAME, tenantInfo.getName())
+                              || booleanFeatureFlagClient.isEnabled(MAP_BOOL2STRING_FEATURE_NAME, false, tenantInfo.getName())
+              )
               .build())
           .toList();
     };
