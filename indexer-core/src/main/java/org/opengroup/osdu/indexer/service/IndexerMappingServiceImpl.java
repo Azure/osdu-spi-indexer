@@ -238,6 +238,10 @@ public class IndexerMappingServiceImpl extends MappingServiceImpl implements IMa
         // Let's gather fields that are missingFields in mapping that came from elastic
         List<String> missingFields = getMissingFields(props);
 
+        if (xcollaborationHolder.getCollaborationContext().isEmpty()) {
+            missingFields.remove(X_COLLABORATION);
+        }
+
         if (missingFields.isEmpty()) {
             this.indexCache.put(cacheKey, true);
             return;
