@@ -8,6 +8,7 @@ tests:
     path: indexer-acceptance-test
     mavenArguments: [test]
     timeoutMinutes: 45
+    forwards: [elasticsearch]
     bindings:
       HOST: { source: gateway }
       DATA_PARTITION_ID: { source: partition }
@@ -24,6 +25,7 @@ tests:
     path: testing
     mavenArguments: [-pl, indexer-test-azure, -am, verify]
     timeoutMinutes: 60
+    forwards: [elasticsearch]
     bindings:
       HOST: { source: gateway }
       INDEXER_HOST: { source: gateway, suffix: /api/indexer/v2/ }
