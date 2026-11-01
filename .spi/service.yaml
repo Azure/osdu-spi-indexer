@@ -6,7 +6,8 @@ tests:
   acceptance:
     type: maven
     path: indexer-acceptance-test
-    mavenArguments: [test]
+    # The Azure provider ships featureFlag.xCollaboration off, so the collaboration runner cannot pass.
+    mavenArguments: [test, "-Dtest=!RunCollaborationTest"]
     timeoutMinutes: 45
     forwards: [elasticsearch]
     bindings:
