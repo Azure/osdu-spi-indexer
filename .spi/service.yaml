@@ -2,4 +2,45 @@ schemaVersion: 3
 service:
   name: indexer
   archetype: java-maven-azure
-tests: {}
+tests:
+  acceptance:
+    type: maven
+    path: indexer-acceptance-test
+    # The Azure provider ships featureFlag.xCollaboration off, so the collaboration runner cannot pass.
+    mavenArguments: [test, "-Dtest=!RunCollaborationTest"]
+    timeoutMinutes: 45
+    forwards: [elasticsearch]
+    bindings:
+      HOST: { source: gateway }
+      DATA_PARTITION_ID: { source: partition }
+      ENTITLEMENTS_DOMAIN: { source: domain }
+      PRIVILEGED_USER_TOKEN: { source: token }
+      ELASTIC_HOST: { source: static, value: localhost }
+      ELASTIC_PORT: { source: static, value: "9200" }
+      ELASTIC_USER_NAME: { source: keyvault:opendes-elastic-username }
+      ELASTIC_PASSWORD: { source: keyvault:opendes-elastic-password }
+      ELASTIC_SSL_ENABLED: { source: static, value: "true" }
+      SECURITY_HTTPS_CERTIFICATE_TRUST: { source: static, value: "true" }
+  integration:
+    type: maven
+    path: testing
+    mavenArguments: [-pl, indexer-test-azure, -am, verify]
+    timeoutMinutes: 60
+    forwards: [elasticsearch]
+    bindings:
+      HOST: { source: gateway }
+      INDEXER_HOST: { source: gateway, suffix: /api/indexer/v2/ }
+      SEARCH_HOST: { source: gateway, suffix: /api/search/v2/ }
+      STORAGE_HOST: { source: gateway, suffix: /api/storage/v2/ }
+      DEFAULT_DATA_PARTITION_ID_TENANT1: { source: partition }
+      DEFAULT_DATA_PARTITION_ID_TENANT2: { source: static, value: non-exist }
+      ENTITLEMENTS_DOMAIN: { source: domain }
+      LEGAL_TAG: { source: legalTag }
+      OTHER_RELEVANT_DATA_COUNTRIES: { source: static, value: US }
+      INTEGRATION_TESTER_ACCESS_TOKEN: { source: token }
+      ELASTIC_HOST: { source: static, value: localhost }
+      ELASTIC_PORT: { source: static, value: "9200" }
+      ELASTIC_USER_NAME: { source: keyvault:opendes-elastic-username }
+      ELASTIC_PASSWORD: { source: keyvault:opendes-elastic-password }
+      ELASTIC_SSL_ENABLED: { source: static, value: "true" }
+      SECURITY_HTTPS_CERTIFICATE_TRUST: { source: static, value: "true" }
