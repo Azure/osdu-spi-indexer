@@ -15,8 +15,8 @@ tests:
       DATA_PARTITION_ID: { source: partition }
       ENTITLEMENTS_DOMAIN: { source: domain }
       PRIVILEGED_USER_TOKEN: { source: token }
-      ELASTIC_HOST: { source: static, value: localhost }
-      ELASTIC_PORT: { source: static, value: "9200" }
+      ELASTIC_HOST: { source: "forward:elasticsearch:host" }
+      ELASTIC_PORT: { source: "forward:elasticsearch:port" }
       ELASTIC_USER_NAME: { source: keyvault:opendes-elastic-username }
       ELASTIC_PASSWORD: { source: keyvault:opendes-elastic-password }
       ELASTIC_SSL_ENABLED: { source: static, value: "true" }
@@ -38,8 +38,8 @@ tests:
       LEGAL_TAG: { source: legalTag }
       OTHER_RELEVANT_DATA_COUNTRIES: { source: static, value: US }
       INTEGRATION_TESTER_ACCESS_TOKEN: { source: token }
-      ELASTIC_HOST: { source: static, value: localhost }
-      ELASTIC_PORT: { source: static, value: "9200" }
+      ELASTIC_HOST: { source: "forward:elasticsearch:host" }
+      ELASTIC_PORT: { source: "forward:elasticsearch:port" }
       ELASTIC_USER_NAME: { source: keyvault:opendes-elastic-username }
       ELASTIC_PASSWORD: { source: keyvault:opendes-elastic-password }
       ELASTIC_SSL_ENABLED: { source: static, value: "true" }
