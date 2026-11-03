@@ -92,6 +92,7 @@ public class XcollaborationHolder {
 
   public static final String X_COLLABORATION = RecordMetaAttribute.COLLABORATION_ID.getValue();
   private Optional<CollaborationContext> collaborationContext = Optional.<CollaborationContext>empty();
+  private Boolean collaborationFeatureEnabled;
 
     @Autowired
     private IFeatureFlag featureFlagChecker;
@@ -105,6 +106,7 @@ public class XcollaborationHolder {
     public void setxCollaborationHeader(String xCollaborationHeader) {
         this.xCollaborationHeader = xCollaborationHeader;
         collaborationContext = collaborationContextFactory.create(xCollaborationHeader);
+        collaborationFeatureEnabled = null;
     }
 
     /**
@@ -129,7 +131,13 @@ public class XcollaborationHolder {
      * With respect to both conditions: if feature is enabled and x-collaboration header exists.
      */
     public boolean isFeatureEnabledAndHeaderExists() {
-        return isFeatureEnabled() && isXcollaborationHeaderExists();
+        if (!isXcollaborationHeaderExists()) {
+            return false;
+        }
+        if (collaborationFeatureEnabled == null) {
+            collaborationFeatureEnabled = isFeatureEnabled();
+        }
+        return collaborationFeatureEnabled;
     }
 
     /**
