@@ -143,7 +143,7 @@ public class StorageServiceImpl implements StorageService {
         String body = this.gson.toJson(RecordIds.builder().records(ids).build());
 
         DpsHeaders headers = this.requestInfo.getHeaders();
-        if (xCollaborationHolder.isFeatureEnabledAndHeaderExists()) {
+        if (xCollaborationHolder.isXcollaborationHeaderExists()) {
             headers.put(DpsHeaders.COLLABORATION, xCollaborationHolder.getXCollaborationHeader());
         }
         headers.put(FRAME_OF_REFERENCE, SLB_FRAME_OF_REFERENCE_VALUE);
@@ -154,7 +154,7 @@ public class StorageServiceImpl implements StorageService {
                 .headers(headers)
                 .body(body).build();
         HttpResponse response = this.urlFetchService.sendRequest(request);
-        log.debug("Is isFeatureEnabledAndHeaderExists: {}", xCollaborationHolder.isFeatureEnabledAndHeaderExists());
+        log.debug("Is isXcollaborationHeaderExists: {}", xCollaborationHolder.isXcollaborationHeaderExists());
         return this.validateStorageResponse(response, ids, recordChangedMap, validRecordKindPatchMap);
     }
 

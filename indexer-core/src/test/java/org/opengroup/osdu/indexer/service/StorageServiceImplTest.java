@@ -111,7 +111,7 @@ public class StorageServiceImplTest {
         ids = Arrays.asList(RECORD_ID1, RECORDS_ID2);
 
         when(configurationProperties.getStorageRecordsBatchSize()).thenReturn(20);
-        when(xcollaborationHolder.isFeatureEnabledAndHeaderExists()).thenReturn(false);
+        when(xcollaborationHolder.isXcollaborationHeaderExists()).thenReturn(false);
     }
 
     @Test

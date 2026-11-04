@@ -20,7 +20,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.opengroup.osdu.indexer.config.IndexerConfigurationProperties.COLLABORATIONS_FEATURE_NAME;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -44,7 +43,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.opengroup.osdu.core.common.http.IUrlFetchService;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import org.opengroup.osdu.core.common.model.indexer.IndexProgress;
@@ -153,13 +152,9 @@ public class RecordIndexerApiTest {
   private FeatureFlagStateConfiguration stateConfiguration;
 
   @ParameterizedTest
-  @CsvSource({"true,true", "true,false", "false,false", "false, true"})
-  public void givenXcollaborationHeaderAndFeatureEnabledTest(String isFeatureEnabled,
-                                                             String shouldIncludeXattributeIntoHeader)
+  @ValueSource(booleans = {true, false})
+  public void givenXcollaborationHeader_shouldProcessRequest(boolean shouldIncludeXattributeIntoHeader)
       throws Exception {
-
-    // set env to enable feature
-    System.setProperty(COLLABORATIONS_FEATURE_NAME, isFeatureEnabled);
 
     // constants
     String schemaAsJsonFile = "src/test/java/org/opengroup/osdu/indexer/integTest/fixtures/schema.json";
@@ -185,7 +180,7 @@ public class RecordIndexerApiTest {
     attributes.put("data-partition-id", "test");
     String nameSpaceAsUUID = UUID.randomUUID().toString();
     String xCollaborationValue = "id=" + nameSpaceAsUUID + ",application=app-name-in-x-collab-header";
-    if (Boolean.parseBoolean(shouldIncludeXattributeIntoHeader)) {
+    if (shouldIncludeXattributeIntoHeader) {
       attributes.put(DpsHeaders.COLLABORATION, xCollaborationValue);
     }
 
