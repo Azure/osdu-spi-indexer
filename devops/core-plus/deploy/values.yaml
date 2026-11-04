@@ -17,7 +17,6 @@ data:
   schemaHost: "http://schema"
   securityHttpsCertificateTrust: "true"
   storageHost: "http://storage"
-  collaborationsEnabled: true
   # Otel
   javaToolOptions: ""
   otelExporterEndpoint: ""
