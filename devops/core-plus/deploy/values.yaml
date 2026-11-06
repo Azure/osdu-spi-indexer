@@ -18,7 +18,7 @@ data:
   securityHttpsCertificateTrust: "true"
   storageHost: "http://storage"
   # Otel
-  javaToolOptions: ""
+  javaToolOptions: "-XX:ActiveProcessorCount=8"
   otelExporterEndpoint: ""
   otelExporterProtocol: ""
   # PubSub topic configuration
