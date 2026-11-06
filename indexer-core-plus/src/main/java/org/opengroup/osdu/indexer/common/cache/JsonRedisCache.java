@@ -17,9 +17,10 @@
 
 package org.opengroup.osdu.indexer.common.cache;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import com.google.gson.Gson;
 import java.util.function.Function;
 import org.opengroup.osdu.core.common.cache.ICache;
@@ -32,8 +33,10 @@ public abstract class JsonRedisCache<V> implements ICache<String, V>, AutoClosea
 
     private static final Gson GSON = new Gson();
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+    // Jackson 2 defaults keep the cached JSON format readable across the Jackson 3 upgrade
+    private static final ObjectMapper OBJECT_MAPPER = JsonMapper.builderWithJackson2Defaults()
+            .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .build();
 
     private final RedisCache<String, String> cache;
     private final Function<V, String> serializer;
@@ -59,7 +62,7 @@ public abstract class JsonRedisCache<V> implements ICache<String, V>, AutoClosea
         return value -> {
             try {
                 return OBJECT_MAPPER.writeValueAsString(value);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 throw new IllegalStateException("Failed to serialize cache value", e);
             }
         };
@@ -69,7 +72,7 @@ public abstract class JsonRedisCache<V> implements ICache<String, V>, AutoClosea
         return json -> {
             try {
                 return OBJECT_MAPPER.readValue(json, type);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 throw new IllegalStateException("Failed to deserialize cache value", e);
             }
         };

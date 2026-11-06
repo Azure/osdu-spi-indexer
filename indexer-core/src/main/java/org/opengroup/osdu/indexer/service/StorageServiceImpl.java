@@ -14,8 +14,8 @@
 
 package org.opengroup.osdu.indexer.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.ObjectMapper;
 import com.google.api.client.http.HttpMethods;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -181,7 +181,7 @@ public class StorageServiceImpl implements StorageService {
             notFoundRecordIds.removeAll(records.getRecords().stream().map(Records.Entity::getId).collect(Collectors.toList()));
             records.setNotFound(notFoundRecordIds);
             return records;
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new AppException(RequestStatus.INVALID_RECORD, "Invalid request", "Successful Storage service response with wrong json", e);
         }
     }
@@ -201,7 +201,7 @@ public class StorageServiceImpl implements StorageService {
         Records records = null;
         try {
             records = this.objectMapper.readValue(bulkStorageData, Records.class);
-        } catch (JsonProcessingException e) {
+        } catch (JacksonException e) {
             throw new AppException(RequestStatus.INVALID_RECORD, "Invalid request", "Successful Storage service response with wrong json", e);
         }
 
