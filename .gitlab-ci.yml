@@ -73,7 +73,7 @@ download_plugins:
     OQM_PACKAGE_REGISRTY_URL: "https://community.opengroup.org/api/v4/projects/1450/packages/maven"
     OQM_VERSION: "1.0.0"
     APD_PACKAGE_REGISTRY_URL: "https://community.opengroup.org/api/v4/projects/1445/packages/maven"
-    APD_VERSION: "1.0.0"
+    APD_VERSION: "1.0.1"
 
   artifacts:
     paths:
@@ -88,6 +88,22 @@ download_plugins:
   only:
     variables:
       - $PROTECTED == '1'
+
+# The shared jobs build only the azure module, so indexer-core resolves to the
+# published SNAPSHOT from master instead of this branch. Build indexer-core
+# in the same reactor so provider code is compiled and tested against branch core.
+azure-compile-and-unit-test:
+  script:
+    - mvn clean package -f pom.xml -P core,azure -pl provider/indexer-azure -am
+
+azure_code_coverage:
+  script:
+    - mvn clean prepare-package -f pom.xml -P core,azure -pl provider/indexer-azure -am
+    - cat $AZURE_BUILD_SUBDIR/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
+    - coverageText=$(cat $AZURE_BUILD_SUBDIR/target/site/jacoco/index.html | grep -o 'Total[^%]*%' | sed 's/<.*>/ /; s/Total/Jacoco Coverage Total:/')
+    - coverageValue=$(echo $coverageText | grep -o -E "[0-9]+")
+    - echo "AZURE_COVERAGE=$coverageValue" >> azure_code_coverage.env
+    - echo "Code coverage obtained ${coverageValue}"
 
 # Schemathesis jobs load schemathesis-tests/schemathesis.toml via
 # SCHEMATHESIS_CONFIG_FILE when present (see reporting/schemathesis.yml).

@@ -72,7 +72,7 @@ import org.opengroup.osdu.indexer.util.CustomIndexAnalyzerSetting;
 import org.opengroup.osdu.indexer.util.ElasticClientHandler;
 import org.opengroup.osdu.indexer.util.TypeMapper;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
@@ -106,7 +106,7 @@ public class IndexerMappingServiceTest {
     private ElasticIndexNameResolver elasticIndexNameResolver;
     @Mock
     private XcollaborationHolder xcollaborationHolder;
-    @MockBean
+    @MockitoBean
     private IFeatureFlag featureFlag;
     @Mock
     private CustomIndexAnalyzerSetting customIndexAnalyzerSetting;
