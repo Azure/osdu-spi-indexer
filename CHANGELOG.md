@@ -1,5 +1,67 @@
 # Changelog
 
+## [1.4.1](https://github.com/Azure/osdu-spi-indexer/compare/v1.4.0...v1.4.1) (2026-11-06)
+
+
+### 🐛 Bug Fixes
+
+* [Venus] Remove IBM provider code and CI/CD from Indexer ([#422](https://github.com/Azure/osdu-spi-indexer/issues/422)) ([98424c8](https://github.com/Azure/osdu-spi-indexer/commit/98424c82729c6cd37e3f6144bff2c35a431fda18))
+* [Venus] Verify the deployed revision in Indexer acceptance tests ([#417](https://github.com/Azure/osdu-spi-indexer/issues/417)) ([6f736fa](https://github.com/Azure/osdu-spi-indexer/commit/6f736fa33a3170af30a306da1d9b296cc0df6367))
+* Sync upstream changes from 18297efa ([4bb6be9](https://github.com/Azure/osdu-spi-indexer/commit/4bb6be9e0ca76943da088dfa2fb318ae57f1dc10))
+* Sync upstream changes from 7e2ec02b ([c1283f7](https://github.com/Azure/osdu-spi-indexer/commit/c1283f783f047a8578409d67108c91898efa7501))
+* Sync upstream changes from 9903843b ([594aaa6](https://github.com/Azure/osdu-spi-indexer/commit/594aaa68c1fa128a14936f2d212c6bcbd68db37a))
+* Sync upstream changes from cfac4eba ([c4d2393](https://github.com/Azure/osdu-spi-indexer/commit/c4d239381559cc7cf7282abad7a931193ca24fa1))
+
+
+### 🔧 Miscellaneous
+
+* Generate filtered upstream tree ([6a195ae](https://github.com/Azure/osdu-spi-indexer/commit/6a195aedcb3e2f286490fd7de2e221372947870f))
+* Generate filtered upstream tree ([4af75b4](https://github.com/Azure/osdu-spi-indexer/commit/4af75b4c939218524793f185535cf066efc6ae89))
+* Generate filtered upstream tree ([98a33df](https://github.com/Azure/osdu-spi-indexer/commit/98a33dfea070aa02d762cbee559e4903e9a9d411))
+* Generate filtered upstream tree ([7c1108a](https://github.com/Azure/osdu-spi-indexer/commit/7c1108a1e8313f05e76d8814180dadc357a0bc9f))
+* **spi:** Source elasticsearch host and port from forwards ([298fc00](https://github.com/Azure/osdu-spi-indexer/commit/298fc00725baaa808291624fa947cf8a63322e15))
+* **spi:** Source elasticsearch host and port from forwards ([f61dde2](https://github.com/Azure/osdu-spi-indexer/commit/f61dde266e8c0781538a0198d40afb89a44f0126))
+* Stamp fork-owned pom versions ([fa2683d](https://github.com/Azure/osdu-spi-indexer/commit/fa2683d2021f6d6555ade0dac362fa5d58e8b5f6))
+* Sync template updates ([bc3d115](https://github.com/Azure/osdu-spi-indexer/commit/bc3d1157d6d0740df4e1b615b33ec8f0a64f862d))
+* Sync template updates ([553c35b](https://github.com/Azure/osdu-spi-indexer/commit/553c35b2f186096836407986d2e17261386ee894))
+* Sync template updates ([3d3ea02](https://github.com/Azure/osdu-spi-indexer/commit/3d3ea023d5bab3614320841568cd178b980ae9f2))
+* Sync template updates ([f8c402f](https://github.com/Azure/osdu-spi-indexer/commit/f8c402fc7dab2f83afe3719402fd4b4e55e3a3f8))
+* Sync template updates ([d32b0a0](https://github.com/Azure/osdu-spi-indexer/commit/d32b0a067715c1e2ccb0d99ca3415cf23c3a7789))
+* Sync template updates ([3e7be92](https://github.com/Azure/osdu-spi-indexer/commit/3e7be92499037661c4ffc61802fa5298a02b482c))
+* Sync template updates ([d73ebe3](https://github.com/Azure/osdu-spi-indexer/commit/d73ebe310553a2eebbdab93200d780f33beaf613))
+* Sync template updates ([ae2625d](https://github.com/Azure/osdu-spi-indexer/commit/ae2625db183fe0163119c47c5aa8e9c436db61f2))
+* Sync template updates ([7fcc0cf](https://github.com/Azure/osdu-spi-indexer/commit/7fcc0cf062bcb2c78bb2b028cfa5bd47b3aa1400))
+* Sync template updates ([e515a7a](https://github.com/Azure/osdu-spi-indexer/commit/e515a7a47ad34af4bdff18c67a3865151996a8ca))
+* Sync template updates ([b285c11](https://github.com/Azure/osdu-spi-indexer/commit/b285c112bd47fcb43f7091d0ab810e78c9831670))
+* **template-sync:** Sync template updates (updated 2026-10-22) ([efc9be0](https://github.com/Azure/osdu-spi-indexer/commit/efc9be0b070a9da212f43665aa57782f5e38be42))
+* **template-sync:** Sync template updates (updated 2026-10-27) ([07b215c](https://github.com/Azure/osdu-spi-indexer/commit/07b215c5022bc330b65693adf6367f83981f1f49))
+* **template-sync:** Sync template updates (updated 2026-10-31) ([64402b5](https://github.com/Azure/osdu-spi-indexer/commit/64402b59cf9627251428a6799a559d9d407458db))
+* **template-sync:** Sync template updates (updated 2026-11-04) ([3a3e573](https://github.com/Azure/osdu-spi-indexer/commit/3a3e573443601617805dc0ed31de34c822f3ca22))
+* **template-sync:** Sync template updates 2026-10-27 ([f130049](https://github.com/Azure/osdu-spi-indexer/commit/f13004986c630fec9540a84857de7061329e592e))
+* **template-sync:** Sync template updates 2026-11-01 ([8d9b70e](https://github.com/Azure/osdu-spi-indexer/commit/8d9b70e147981b377667644a51914f8318ea8962))
+* **template-sync:** Sync template updates 2026-11-01 ([78bb7eb](https://github.com/Azure/osdu-spi-indexer/commit/78bb7eb7c2feeb63897388dbea9f7e7fb6dae40b))
+* **template-sync:** Sync template updates 2026-11-02 ([ad450fe](https://github.com/Azure/osdu-spi-indexer/commit/ad450feaa9504733cf77c797165b25930908ee26))
+* **template-sync:** Sync template updates 2026-11-02 ([1531f7c](https://github.com/Azure/osdu-spi-indexer/commit/1531f7cf90e4b1903316222fbb143ee4ea675e11))
+* **template-sync:** Sync template updates 2026-11-05 ([44a736a](https://github.com/Azure/osdu-spi-indexer/commit/44a736a2c9662ba50e226c0c7a2a74811b27565b))
+* **template-sync:** Sync template updates 2026-11-06 ([a224903](https://github.com/Azure/osdu-spi-indexer/commit/a224903caa79db67ccf9667f2163db38499ad7b9))
+* Update NOTICE from fossa-check-notice ([6ae1d90](https://github.com/Azure/osdu-spi-indexer/commit/6ae1d90647a9f8ea50dce5c55fa66397ba5db7c3))
+* **upstream-filter:** Keep schemathesis-tests in top-level filter ([fc74a60](https://github.com/Azure/osdu-spi-indexer/commit/fc74a601e67f8a49aec0eaffb2ffda3b164e9ce0))
+* **upstream:** Keep schemathesis-tests in upstream filter ([ea009cb](https://github.com/Azure/osdu-spi-indexer/commit/ea009cbb4e29f39e288d44823834ee14f6b64177))
+
+
+### 🔨 Build System
+
+* **deps:** Bump core-lib-azure to 4.0.0 in indexer-azure ([bbcbb5a](https://github.com/Azure/osdu-spi-indexer/commit/bbcbb5af9d9db75a49e639d944f0050f14a3f215))
+* **deps:** Bump core-lib-azure to 4.0.0 in indexer-azure ([0dc919c](https://github.com/Azure/osdu-spi-indexer/commit/0dc919cadc675626dcb0ddddb7ed53487a2ff869))
+
+
+### ⚙️ Continuous Integration
+
+* **spi:** Declare acceptance and integration suites ([4f3d205](https://github.com/Azure/osdu-spi-indexer/commit/4f3d205dd44e41284f7e76cdb7162ebab6e4759d))
+* **spi:** Declare acceptance and integration test suites ([f3030be](https://github.com/Azure/osdu-spi-indexer/commit/f3030bea74ae3660a557f1d1f6e8c73019035c19))
+* **spi:** Forward elasticsearch to indexer test suites ([956f96a](https://github.com/Azure/osdu-spi-indexer/commit/956f96ac20e6835b33ba1fdf6c1c6c246ea434bd))
+* **spi:** Skip RunCollaborationTest in acceptance suite ([b0aa54f](https://github.com/Azure/osdu-spi-indexer/commit/b0aa54f6db162acfe75ce0e77b47d3595e45bdc5))
+
 ## [1.4.0](https://github.com/Azure/osdu-spi-indexer/compare/v1.3.0...v1.4.0) (2026-10-14)
 
 
