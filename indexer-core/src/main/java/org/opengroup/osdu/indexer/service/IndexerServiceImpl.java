@@ -670,7 +670,7 @@ public class IndexerServiceImpl implements IndexerService {
             // For index to be indexed we are using id that record has (osdu version).
             // If the id (which is of type string) is not set, then Elasticsearch will automatically generate it.
             String indexId;
-            if (xcollaborationHolder.isFeatureEnabledAndHeaderExists()){
+            if (xcollaborationHolder.isXcollaborationHeaderExists()){
                 indexId = CollaborationContextUtil
                     .composeIdWithNamespace(payloadRecord.getId(), xcollaborationHolder.getCollaborationContext());
             }else {
@@ -730,7 +730,7 @@ public class IndexerServiceImpl implements IndexerService {
             for (BulkResponseItem bulkItemResponse : bulkResponse.items()) {
                 if (bulkItemResponse.error() != null) {
                     String recordId = bulkItemResponse.id();
-                    if (xcollaborationHolder.isFeatureEnabledAndHeaderExists()) {
+                    if (xcollaborationHolder.isXcollaborationHeaderExists()) {
                         // bulk item ids carry the collaboration namespace; strip it so retry and status tracking match the original record ids
                         recordId = xcollaborationHolder.removeXcollaborationValue(recordId);
                     }
@@ -762,7 +762,7 @@ public class IndexerServiceImpl implements IndexerService {
 
                     String elasticSearchNativeId = bulkItemResponse.id();
 
-                    if (xcollaborationHolder.isFeatureEnabledAndHeaderExists()) {
+                    if (xcollaborationHolder.isXcollaborationHeaderExists()) {
                         // need to strip x-collaboration header from Bulkresponse because
                         // addOrUpdateRecordStatus() will do comparison if id of the project is the same as _id of Elasticsearch.
                         // In case they are not the same then addOrUpdateRecordStatus() will create new RecordStatus
@@ -842,7 +842,7 @@ public class IndexerServiceImpl implements IndexerService {
         if (!Strings.isNullOrEmpty(payloadRecord.getModifyTime())) {
             indexerPayload.put(RecordMetaAttribute.MODIFY_TIME.getValue(), payloadRecord.getModifyTime());
         }
-        if (xcollaborationHolder.isFeatureEnabledAndHeaderExists()) {
+        if (xcollaborationHolder.isXcollaborationHeaderExists()) {
             indexerPayload.computeIfAbsent(XcollaborationHolder.X_COLLABORATION,
                 k -> xcollaborationHolder.getCollaborationContext().orElseThrow().getId());
         }
