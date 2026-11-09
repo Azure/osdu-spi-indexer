@@ -11,12 +11,7 @@ Community / core-plus modules compile and run on Java 25. For core-plus local se
 
 # Introduction 
 
-os-indexer-azure is a [Spring Boot](https://spring.io/projects/spring-boot) service that is responsible for indexing Records that enable the `os-search` service to execute OSDU R2 domain searches against Elasticsearch.
-
-## Azure Implementation
-
-The [os-indexer-azure README.md](./provider/indexer-azure/README.md) has all the information needed to get started
-running the `os-indexer` Azure implementation
+os-indexer is a [Spring Boot](https://spring.io/projects/spring-boot) service that is responsible for indexing Records that enable the `os-search` service to execute OSDU R2 domain searches against Elasticsearch.
 
 ## Google Cloud Implementation
 
@@ -36,5 +31,5 @@ All the Swagger and OpenAPI related common properties are managed here [swagger.
 #### Server Url(full path vs relative path) configuration
 - `api.server.fullUrl.enabled=true` It will generate full server url in the OpenAPI swagger
 - `api.server.fullUrl.enabled=false` It will generate only the contextPath only
-- default value is false (Currently only in Azure it is enabled)
+- default value is false
 [Reference]:(https://springdoc.org/faq.html#_how_is_server_url_generated) 

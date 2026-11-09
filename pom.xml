@@ -314,12 +314,6 @@
                 <module>indexer-core-plus</module>
             </modules>
         </profile>
-        <profile>
-            <id>azure</id>
-            <modules>
-                <module>provider/indexer-azure</module>
-            </modules>
-        </profile>
     </profiles>
 
     <build>
@@ -409,7 +403,6 @@
                                         <exclude>org.opengroup.osdu.indexer:indexer-service</exclude>
                                         <exclude>org.opengroup.osdu.indexer:indexer-core</exclude>
                                         <exclude>org.opengroup.osdu.indexer:indexer-core-plus</exclude>
-                                        <exclude>org.opengroup.osdu.indexer:indexer-azure</exclude>
 
                                     </excludes>
                                 </requireReleaseDeps>
