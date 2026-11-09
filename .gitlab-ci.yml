@@ -1,7 +1,4 @@
 variables:
-  AZURE_SERVICE: indexer
-  AZURE_BUILD_SUBDIR: provider/indexer-azure
-  AZURE_TEST_SUBDIR: testing/indexer-test-azure
   # Full Docker Hub tag after "maven:" — flip to ...-temurin-25 for Java 25 compile/test.
   # Keep in sync with SERVICE_JAVA_VERSION (plugin-download jobs).
   # Dependency scanning: SBOM early-mover (sbom-maven.yml); do not set DS_JAVA_VERSION: "25".
@@ -41,16 +38,10 @@ include:
     file: "publishing/common-pages.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
-    file: "cloud-providers/azure.yml"
-
-  - project: "osdu/platform/ci-cd-pipelines"
     file: "cloud-providers/cimpl-global.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "build/cimpl-otel.yml"
-
-  - project: "osdu/platform/ci-cd-pipelines"
-    file: "cloud-providers/azure-one-pipeline.yml"
 
   - project: "osdu/platform/ci-cd-pipelines"
     file: "reporting/schemathesis.yml"
@@ -88,22 +79,6 @@ download_plugins:
   only:
     variables:
       - $PROTECTED == '1'
-
-# The shared jobs build only the azure module, so indexer-core resolves to the
-# published SNAPSHOT from master instead of this branch. Build indexer-core
-# in the same reactor so provider code is compiled and tested against branch core.
-azure-compile-and-unit-test:
-  script:
-    - mvn clean package -f pom.xml -P core,azure -pl provider/indexer-azure -am
-
-azure_code_coverage:
-  script:
-    - mvn clean prepare-package -f pom.xml -P core,azure -pl provider/indexer-azure -am
-    - cat $AZURE_BUILD_SUBDIR/target/site/jacoco/index.html | grep -o '<tfoot>.*</tfoot>'
-    - coverageText=$(cat $AZURE_BUILD_SUBDIR/target/site/jacoco/index.html | grep -o 'Total[^%]*%' | sed 's/<.*>/ /; s/Total/Jacoco Coverage Total:/')
-    - coverageValue=$(echo $coverageText | grep -o -E "[0-9]+")
-    - echo "AZURE_COVERAGE=$coverageValue" >> azure_code_coverage.env
-    - echo "Code coverage obtained ${coverageValue}"
 
 # Schemathesis jobs load schemathesis-tests/schemathesis.toml via
 # SCHEMATHESIS_CONFIG_FILE when present (see reporting/schemathesis.yml).
