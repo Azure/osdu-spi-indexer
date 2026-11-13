@@ -45,6 +45,7 @@ import java.util.UUID;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.opengroup.osdu.core.common.http.IUrlFetchService;
+import org.opengroup.osdu.core.common.model.entitlements.AuthorizationResponse;
 import org.opengroup.osdu.core.common.model.http.DpsHeaders;
 import org.opengroup.osdu.core.common.model.indexer.IndexProgress;
 import org.opengroup.osdu.core.common.model.indexer.IndexingStatus;
@@ -53,8 +54,10 @@ import org.opengroup.osdu.core.common.model.indexer.OperationType;
 import org.opengroup.osdu.core.common.model.indexer.RecordInfo;
 import org.opengroup.osdu.core.common.model.indexer.RecordStatus;
 import org.opengroup.osdu.core.common.model.search.RecordChangedMessages;
+import org.opengroup.osdu.core.common.model.search.SearchServiceRole;
 import org.opengroup.osdu.core.common.partition.IPartitionFactory;
 import org.opengroup.osdu.core.common.partition.IPartitionProvider;
+import org.opengroup.osdu.core.common.provider.interfaces.IAuthorizationService;
 import org.opengroup.osdu.core.common.provider.interfaces.IElasticCredentialsCache;
 import org.opengroup.osdu.core.common.provider.interfaces.IElasticRepository;
 import org.opengroup.osdu.core.common.provider.interfaces.IIndexCache;
@@ -150,6 +153,8 @@ public class RecordIndexerApiTest {
   private IPartitionProvider iPartitionProvider;
   @MockitoBean
   private FeatureFlagStateConfiguration stateConfiguration;
+  @MockitoBean
+  private IAuthorizationService authorizationService;
 
   @ParameterizedTest
   @ValueSource(booleans = {true, false})
@@ -191,6 +196,8 @@ public class RecordIndexerApiTest {
     String recordMessage = objectMapper.writeValueAsString(recordChangesMessage);
 
     // to accept http request, configuration, headers
+    when(authorizationService.authorizeAny(any(), eq(SearchServiceRole.ADMIN)))
+        .thenReturn(AuthorizationResponse.builder().user("user-name-from-dpsHeaders").build());
     when(iUrlFetchService.sendRequest(any())).thenReturn(createHttpResponse(recordsAsJsonFile));
     when(iRequestInfo.getHeaders()).thenReturn(dpsHeaders);
     when(dpsHeaders.getUserEmail()).thenReturn("user-name-from-dpsHeaders");
