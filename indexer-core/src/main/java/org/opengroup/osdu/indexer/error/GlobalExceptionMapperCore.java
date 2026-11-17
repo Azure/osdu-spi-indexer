@@ -149,7 +149,7 @@ public class GlobalExceptionMapperCore extends ResponseEntityExceptionHandler {
             @NonNull HttpStatusCode status,
             @NonNull WebRequest request) {
         List<String> errors = new ArrayList<>();
-        e.getAllValidationResults().forEach(result ->
+        e.getParameterValidationResults().forEach(result ->
                 result.getResolvableErrors().forEach(error -> {
                     String message = error.getDefaultMessage();
                     if (StringUtils.isNotBlank(message)) {
