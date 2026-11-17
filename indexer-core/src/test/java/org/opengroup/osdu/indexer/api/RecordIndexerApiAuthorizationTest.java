@@ -112,6 +112,16 @@ class RecordIndexerApiAuthorizationTest {
         verify(schemaEventsProcessor).processSchemaMessages(any());
     }
 
+    @Test
+    void should_skipAuthorization_when_subscriberCallsInProcessEntryPoints() throws Exception {
+        assertEquals(HttpStatus.OK, sut.processRecordChangedMessages(recordChangedMessages()).getStatusCode());
+        assertEquals(HttpStatus.OK, sut.processSchemaChangedMessages(schemaChangedMessages()).getStatusCode());
+
+        verifyNoInteractions(authorizationService);
+        verify(indexerService).processRecordChangedMessages(any(), any());
+        verify(schemaEventsProcessor).processSchemaMessages(any());
+    }
+
     private static RecordChangedMessages recordChangedMessages() {
         return RecordChangedMessages.builder()
             .data("[{\"id\":\"opendes:wellbore:1\",\"kind\":\"opendes:wks:wellbore:1.0.0\",\"op\":\"create\"}]")

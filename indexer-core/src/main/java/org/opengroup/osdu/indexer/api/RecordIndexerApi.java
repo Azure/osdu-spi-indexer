@@ -72,6 +72,14 @@ public class RecordIndexerApi {
     public ResponseEntity<JobStatus> indexWorker(
              @NotNull(message = SwaggerDoc.REQUEST_VALIDATION_NOT_NULL_BODY)
              @Valid @RequestBody RecordChangedMessages recordChangedMessages) throws Exception {
+        return processRecordChangedMessages(recordChangedMessages);
+    }
+
+    /**
+     * In-process entry point for message subscribers that already run with the service account.
+     * Skips the HTTP endpoint authorization check, which would cost an Entitlements call per message.
+     */
+    public ResponseEntity<JobStatus> processRecordChangedMessages(RecordChangedMessages recordChangedMessages) throws Exception {
 
         populateCorrelationIdIfExist(recordChangedMessages);
 
@@ -128,6 +136,14 @@ public class RecordIndexerApi {
     public ResponseEntity<?> schemaWorker(
             @NotNull(message = SwaggerDoc.REQUEST_VALIDATION_NOT_NULL_BODY)
             @Valid @RequestBody SchemaChangedMessages schemaChangedMessage) throws IOException {
+        return processSchemaChangedMessages(schemaChangedMessage);
+    }
+
+    /**
+     * In-process entry point for message subscribers that already run with the service account.
+     * Skips the HTTP endpoint authorization check, which would cost an Entitlements call per message.
+     */
+    public ResponseEntity<?> processSchemaChangedMessages(SchemaChangedMessages schemaChangedMessage) throws IOException {
         if (schemaChangedMessage == null) {
             log.warning("schema change messages is null");
         }
