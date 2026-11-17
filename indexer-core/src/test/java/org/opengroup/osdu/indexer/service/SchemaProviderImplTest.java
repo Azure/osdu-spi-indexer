@@ -14,8 +14,11 @@
 
 package org.opengroup.osdu.indexer.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
 import org.junit.Assert;
 import org.junit.Test;
@@ -30,7 +33,9 @@ import org.opengroup.osdu.indexer.config.IndexerConfigurationProperties;
 import org.opengroup.osdu.indexer.logging.AuditLogger;
 import org.opengroup.osdu.indexer.model.SchemaInfoResponse;
 import org.opengroup.osdu.indexer.schema.converter.SchemaToStorageFormatImpl;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.MapperFeature;
+import tools.jackson.databind.json.JsonMapper;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.UnsupportedEncodingException;
@@ -45,7 +50,10 @@ import static org.mockito.Mockito.*;
 @RunWith(SpringRunner.class)
 public class SchemaProviderImplTest {
 
-    private ObjectMapper objectMapper = Jackson2ObjectMapperBuilder.json().build();
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
+
+    private ObjectMapper objectMapper = JsonMapper.builder().findAndAddModules().disable(MapperFeature.DEFAULT_VIEW_INCLUSION).disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES).build();
     private JaxRsDpsLog jaxRsDpsLog = Mockito.mock(JaxRsDpsLog.class);
 
     @Spy
