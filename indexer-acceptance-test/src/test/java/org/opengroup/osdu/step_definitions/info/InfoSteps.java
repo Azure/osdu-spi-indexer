@@ -38,7 +38,6 @@ public class InfoSteps extends BaseGetInfoCucumberAcceptanceTests {
         "featureFlag.asIngestedCoordinates.enabled",
         "featureFlag.keywordLower.enabled",
         "featureFlag.bagOfWords.enabled",
-        "collaborations-enabled",
         "custom-index-analyzer-enabled",
         "index-augmenter-enabled");
 

@@ -162,7 +162,7 @@ public class IndexerServiceImplTest {
         initMocks(this);
         when(requestScopedClient.getClient()).thenReturn(restHighLevelClient);
         when(augmenterSetting.isEnabled()).thenReturn(true);
-        when(xcollaborationHolder.isFeatureEnabledAndHeaderExists()).thenReturn(false);
+        when(xcollaborationHolder.isXcollaborationHeaderExists()).thenReturn(false);
     }
 
     @After
@@ -677,7 +677,7 @@ public class IndexerServiceImplTest {
 
         CollaborationContext collaborationContext = new CollaborationContext();
         collaborationContext.setId(UUID.fromString("a99cef48-2ed6-4beb-8a43-002373431f21"));
-        when(this.xcollaborationHolder.isFeatureEnabledAndHeaderExists()).thenReturn(true);
+        when(this.xcollaborationHolder.isXcollaborationHeaderExists()).thenReturn(true);
         when(this.xcollaborationHolder.getCollaborationContext()).thenReturn(Optional.of(collaborationContext));
         String composedId2 = CollaborationContextUtil.composeIdWithNamespace(recordId2, Optional.of(collaborationContext));
         String composedId3 = CollaborationContextUtil.composeIdWithNamespace(recordId3, Optional.of(collaborationContext));

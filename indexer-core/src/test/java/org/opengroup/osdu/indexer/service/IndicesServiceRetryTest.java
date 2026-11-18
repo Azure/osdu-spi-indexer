@@ -30,7 +30,7 @@ import co.elastic.clients.elasticsearch.indices.GetIndexRequest;
 import co.elastic.clients.elasticsearch.indices.GetIndexResponse;
 import co.elastic.clients.elasticsearch.indices.IndexState;
 import co.elastic.clients.transport.endpoints.BooleanResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import org.apache.http.HttpStatus;
 import org.junit.Before;
 import org.junit.Test;

@@ -14,6 +14,9 @@
 
 package org.opengroup.osdu.indexer.service;
 
+import org.junit.Rule;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -24,7 +27,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
@@ -63,6 +66,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class StorageServiceImplTest {
+
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
     @Mock
     private IUrlFetchService urlFetchService;
     @Mock
@@ -111,7 +117,7 @@ public class StorageServiceImplTest {
         ids = Arrays.asList(RECORD_ID1, RECORDS_ID2);
 
         when(configurationProperties.getStorageRecordsBatchSize()).thenReturn(20);
-        when(xcollaborationHolder.isFeatureEnabledAndHeaderExists()).thenReturn(false);
+        when(xcollaborationHolder.isXcollaborationHeaderExists()).thenReturn(false);
     }
 
     @Test
