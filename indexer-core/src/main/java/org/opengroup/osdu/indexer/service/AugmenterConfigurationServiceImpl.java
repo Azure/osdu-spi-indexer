@@ -18,8 +18,10 @@ package org.opengroup.osdu.indexer.service;
 import co.elastic.clients.elasticsearch._types.SortOptions;
 import co.elastic.clients.elasticsearch._types.SortOrder;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import tools.jackson.core.JacksonException;
+import tools.jackson.databind.DeserializationFeature;
+import tools.jackson.databind.ObjectMapper;
+import tools.jackson.databind.json.JsonMapper;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import org.springframework.util.CollectionUtils;
@@ -75,7 +77,11 @@ public class AugmenterConfigurationServiceImpl implements AugmenterConfiguration
     private static final int NO_LIMIT = -1;
 
     private final Gson gson = new Gson();
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    // Jackson 2 defaults keep the configuration-record parsing behaviour unchanged; in particular unknown
+    // properties in nested configurations must still be rejected (Jackson 3 ignores them by default).
+    private final ObjectMapper objectMapper = JsonMapper.builderWithJackson2Defaults()
+            .enable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
+            .build();
 
     @Inject
     private IndexerConfigurationProperties configurationProperties;
@@ -402,7 +408,7 @@ public class AugmenterConfigurationServiceImpl implements AugmenterConfiguration
                     else {
                         jaxRsDpsLog.warning(String.format("resolveKindsForSchemaUpdate: configuration with id %s is invalid", configurationId));
                     }
-                } catch (JsonProcessingException e) {
+                } catch (JacksonException e) {
                     jaxRsDpsLog.error(String.format("resolveKindsForSchemaUpdate: failed to deserialize PropertyConfigurations object with id %s", configurationId), e);
                 }
             }
@@ -1111,7 +1117,7 @@ public class AugmenterConfigurationServiceImpl implements AugmenterConfiguration
                 String kind = PropertyUtil.getKindWithMajor(configurations.getCode());
                 augmenterConfigurationCache.put(kind, configurations);
                 augmenterConfigurations.add(configurations);
-            } catch (JsonProcessingException e) {
+            } catch (JacksonException e) {
                 jaxRsDpsLog.error("Augmenter(searchConfigurations): failed to deserialize PropertyConfigurations object", e);
             }
         }

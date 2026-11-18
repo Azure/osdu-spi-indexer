@@ -94,12 +94,12 @@
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
-            <version>4.1.139.Final</version>
+            <version>4.1.140.Final</version>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-transport</artifactId>
-            <version>4.1.139.Final</version>
+            <version>4.1.140.Final</version>
         </dependency>
         <dependency>
             <groupId>com.azure</groupId>
@@ -171,7 +171,7 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>27.1-jre</version>
+            <version>33.7.2-jre</version>
         </dependency>
 
         <!--Elasticsearch-->
