@@ -12,7 +12,7 @@
         <revision>0.31.0-SNAPSHOT</revision>
         <java.version>25</java.version>
         <maven.compiler.release>${java.version}</maven.compiler.release>
-        <os-core-common.version>10.0.0</os-core-common.version>
+        <os-core-common.version>10.0.1</os-core-common.version>
         <commons-codec.version>1.20.0</commons-codec.version>
         <woodstox-core.version>6.4.0</woodstox-core.version>
         <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
@@ -43,7 +43,7 @@
         <jackson3.version>3.1.8</jackson3.version>
         <!-- CVE-2025-67030: plexus-utils Directory Traversal; need >= 4.0.3 -->
         <plexus-utils.version>4.0.3</plexus-utils.version>
-        <elasticsearch.version>8.15.2</elasticsearch.version>
+        <elasticsearch.version>8.19.24</elasticsearch.version>
         <spring-plugin.version>3.0.0</spring-plugin.version>
         <jacoco.version>0.8.14</jacoco.version>
         <git-commit-id-maven-plugin.version>8.0.2</git-commit-id-maven-plugin.version>
