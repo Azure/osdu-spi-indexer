@@ -15,6 +15,14 @@ variables:
   CORE_COVERAGE_THRESHOLD: "80"
   ACCEPTANCE_TEST_DIR: "indexer-acceptance-test"
 
+# Run coverage from the reactor so core-plus gets its in-repo core dependency.
+# The shared job invokes the two modules separately, which leaves core-plus classes
+# unavailable to the Sonar scan and makes Maven resolve the snapshot remotely.
+core_code_coverage:
+  before_script:
+    - !reference [.maven, before_script]
+    - $MAVEN -pl indexer-core,indexer-core-plus -am install -DskipTests=true
+
 include:
   - project: "osdu/platform/ci-cd-pipelines"
     file: "standard-setup.yml"

@@ -146,6 +146,8 @@ public class RecordIndexerApi {
     public ResponseEntity<?> processSchemaChangedMessages(SchemaChangedMessages schemaChangedMessage) throws IOException {
         if (schemaChangedMessage == null) {
             log.warning("schema change messages is null");
+            throw new AppException(org.apache.http.HttpStatus.SC_BAD_REQUEST, "Invalid request",
+                    SwaggerDoc.REQUEST_VALIDATION_NOT_NULL_BODY);
         }
 
         if (schemaChangedMessage.missingAccountId()) {

@@ -19,6 +19,7 @@ package org.opengroup.osdu.indexer.integTest;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -74,6 +75,9 @@ import org.opengroup.osdu.indexer.service.SchemaEventsProcessor;
 import org.opengroup.osdu.indexer.util.ElasticClientHandler;
 import org.opengroup.osdu.indexer.util.FeatureFlagStateConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -127,7 +131,7 @@ public class RecordIndexerApiTest {
   private IServiceAccountJwtClient IServiceAccountJwtClient;
   @MockitoBean
   private IPublisher IPublisher;
-  @MockitoBean
+  @Autowired
   private DpsHeaders dpsHeaders;
   @MockitoBean
   private IUrlFetchService iUrlFetchService;
@@ -155,6 +159,15 @@ public class RecordIndexerApiTest {
   private FeatureFlagStateConfiguration stateConfiguration;
   @MockitoBean
   private IAuthorizationService authorizationService;
+
+  @TestConfiguration
+  static class DpsHeadersTestConfiguration {
+    @Bean
+    @Primary
+    DpsHeaders dpsHeaders() {
+      return mock(DpsHeaders.class);
+    }
+  }
 
   @ParameterizedTest
   @ValueSource(booleans = {true, false})
