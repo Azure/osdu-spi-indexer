@@ -24,7 +24,7 @@
         <spring-security.version>7.0.7</spring-security.version>
         <guava.version>33.7.2-jre</guava.version>
         <!-- Spring Boot 4.0.9 still manages logback 1.5.x; CVE-2026-104721 (SiftingAppender) needs 1.6.5 -->
-        <logback.version>1.6.5</logback.version>
+        <logback.version>1.6.8</logback.version>
         <lombok.version>1.18.42</lombok.version>
         <mockito.version>5.23.0</mockito.version>
         <!-- Empty placeholder so Surefire can late-replace @{argLine} (e.g. Jacoco); without it the literal @{argLine} is passed to the JVM and tests fail to start. -->
