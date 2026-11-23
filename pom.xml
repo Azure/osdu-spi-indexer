@@ -18,7 +18,7 @@
         <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
         <json-smart.version>2.6.0</json-smart.version>
         <openapi.version>3.0.3</openapi.version>
-        <swagger-core.version>2.2.47</swagger-core.version>
+        <swagger-core.version>2.2.56</swagger-core.version>
         <spring-boot.version>4.0.9</spring-boot.version>
         <spring-framework.version>7.0.10</spring-framework.version>
         <spring-security.version>7.0.7</spring-security.version>
